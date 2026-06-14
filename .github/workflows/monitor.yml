@@ -1,4 +1,4 @@
-name: MATES Ballot Monitor
+name: MATES Ballot Monitor Morning
 
 on:
   schedule:
