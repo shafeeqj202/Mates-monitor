@@ -38,8 +38,10 @@ def fetch_page(url: str) -> str:
 
 def extract_ballot_status(html: str) -> str | None:
     match = re.search(
-        r'Ballot Status\s*<[^>]+>\s*(ACTIVE|CLOSED|PENDING|EXPIRED)',
-        html, re.IGNORECASE
+        r'Ballot registration period.*?\b(ACTIVE|CLOSED|PENDING|EXPIRED)\b',
+        html,
+        re.IGNORECASE | re.DOTALL
+
     )
     if match:
         return match.group(1).upper()
