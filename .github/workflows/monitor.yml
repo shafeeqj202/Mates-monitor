@@ -1,0 +1,43 @@
+name: MATES Ballot Monitor
+
+on:
+  schedule:
+    # Runs every day at 8:00 AM Melbourne time
+    # Melbourne is UTC+10 (AEST) or UTC+11 (AEDT Oct-Apr)
+    # Using 22:00 UTC = 8:00 AM AEST (adjust to 21:00 UTC in daylight saving months)
+    - cron: "0 22 * * *"
+
+  # Allows you to run this manually from the Actions tab to test it
+  workflow_dispatch:
+
+jobs:
+  check-ballot:
+    runs-on: ubuntu-latest
+
+    # Allow the workflow to commit state.json back to the repo
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run ballot monitor
+        env:
+          SENDER_EMAIL:    ${{ secrets.SENDER_EMAIL }}
+          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: python mates_ballot_monitor.py
+
+      - name: Save state back to repo
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git diff --cached --quiet || git commit -m "chore: update ballot state [skip ci]"
+          git push
