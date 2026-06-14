@@ -85,7 +85,6 @@ def send_email(subject: str, body: str):
 
 
 def main():
-    breakpoint()
     now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
     print(f"[{now}] Checking MATES ballot status...")
 
