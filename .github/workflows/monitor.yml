@@ -1,11 +1,11 @@
-name: MATES Ballot Monitor Morning
+name: MATES Ballot Monitor Evening
 
 on:
   schedule:
-    # Runs every day at 8:00 AM Melbourne time
+    # Runs every day at 5:00 PM Melbourne time
     # Melbourne is UTC+10 (AEST) or UTC+11 (AEDT Oct-Apr)
-    # Using 22:00 UTC = 8:00 AM AEST (adjust to 21:00 UTC in daylight saving months)
-    - cron: "0 22 * * *"
+    # Using 07:00 UTC = 5:00 PM AEST (adjust to 21:00 UTC in daylight saving months)
+    - cron: "0 7 * * *"
 
   # Allows you to run this manually from the Actions tab to test it
   workflow_dispatch:
