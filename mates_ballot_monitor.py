@@ -20,9 +20,10 @@ from datetime import datetime
 # ── Credentials from GitHub Secrets (set via repo Settings → Secrets) ─────────
 SENDER_EMAIL    = os.environ["SENDER_EMAIL"]      # your Gmail address
 SENDER_PASSWORD = os.environ["SENDER_PASSWORD"]   # 16-char Gmail App Password
-#RECIPIENT_EMAIL = os.environ["RECIPIENT_EMAIL"]   # where to send alerts
-RECIPIENT_EMAIL = [addr.strip() for addr in os.environ["RECIPIENT_EMAIL"].split(",") if addr.strip()]
-
+# RECIPIENT_EMAIL = os.environ["RECIPIENT_EMAIL"]   # where to send alerts
+RECIPIENT_EMAIL = [
+    addr.strip() for addr in os.environ["RECIPIENT_EMAIL"].split(",") if addr.strip()
+]
 # ── Config ─────────────────────────────────────────────────────────────────────
 URL        = "https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/temporary-work-403/mates/ballot-registration/overview"
 STATE_FILE = "state.json"   # stored in the repo root, committed after each run
